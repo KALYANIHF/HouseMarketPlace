@@ -58,7 +58,7 @@ function Navbar() {
                   : "navbarListItemName"
               }
             >
-              HomeIcon
+              Profile
             </p>
           </li>
         </ul>

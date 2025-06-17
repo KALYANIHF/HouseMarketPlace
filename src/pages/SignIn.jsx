@@ -28,7 +28,7 @@ function SignIn() {
       );
       const user = userCredentials.user;
       if (user) {
-        navigate("/");
+        navigate("/profile");
       } else {
         console.log("User not found");
       }
