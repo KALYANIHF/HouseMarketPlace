@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
-import firebaseAppInit from "../firebase.config";
 
 function Profile() {
-  firebaseAppInit;
   const auth = getAuth();
   const [user, setUser] = useState(null);
   useEffect(() => {
-    // set the current profile user
-  }, [user]);
-  return user && <div> Welcome {user.email}</div>;
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+        console.log(user);
+      } else {
+        setUser(null);
+      }
+    });
+  }, []);
+  return user && <div> Welcome to your profile {user.displayName}</div>;
 }
 
 export default Profile;

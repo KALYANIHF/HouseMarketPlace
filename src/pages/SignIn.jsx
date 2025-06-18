@@ -20,21 +20,35 @@ function SignIn() {
     setFromData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("form is submitted");
     try {
-      const userCredentials = await signInWithEmailAndPassword(
+      const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
         password
       );
-      const user = userCredentials.user;
-      if (user) {
+      if (userCredential.user) {
         navigate("/profile");
-      } else {
-        console.log("User not found");
       }
     } catch (error) {
       console.log(error);
     }
+    // try {
+    //   const userCredentials = await signInWithEmailAndPassword(
+    //     auth,
+    //     email,
+    //     password
+    //   );
+    //   const user = userCredentials.user;
+    //   if (user) {
+    //     navigate("/profile");
+    //   } else {
+    //     console.log("User not found");
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
   return (
     <>
