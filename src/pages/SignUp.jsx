@@ -9,10 +9,9 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../firebase.config";
-import firebaseAppInit from "../firebase.config";
+import { db } from "../../firebase.config";
+import { toast } from "react-toastify";
 function SignUp() {
-  firebaseAppInit;
   const auth = getAuth();
 
   const [showpassword, setShowPassWord] = useState(false);
@@ -36,16 +35,19 @@ function SignUp() {
       );
       const user = createUser.user;
 
+      const formDataCopy = { ...formData };
+      delete formDataCopy.password;
+
       updateProfile(auth.currentUser, { displayName: name });
       await setDoc(doc(db, "users", user.uid), {
-        name: name,
-        email: email,
+        name: formDataCopy.name,
+        email: formDataCopy.email,
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
       });
       navigate("/");
     } catch (error) {
-      console.log(error);
+      toast.error("Bad User Credentials");
     }
   };
   return (

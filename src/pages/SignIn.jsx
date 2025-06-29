@@ -4,10 +4,9 @@ import { Link, useNavigate } from "react-router";
 import ArrowIcon from "../assets/svg/keyboardArrowRightIcon.svg?react";
 import visibilityIcon from "../assets/svg/visibilityIcon.svg";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import firebaseAppInit from "../firebase.config";
+import { toast } from "react-toastify";
 
 function SignIn() {
-  firebaseAppInit;
   const auth = getAuth();
   const [showpassword, setShowPassWord] = useState(false);
   const [formData, setFromData] = useState({
@@ -32,23 +31,8 @@ function SignIn() {
         navigate("/profile");
       }
     } catch (error) {
-      console.log(error);
+      toast.error("Bad User Credentials");
     }
-    // try {
-    //   const userCredentials = await signInWithEmailAndPassword(
-    //     auth,
-    //     email,
-    //     password
-    //   );
-    //   const user = userCredentials.user;
-    //   if (user) {
-    //     navigate("/profile");
-    //   } else {
-    //     console.log("User not found");
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
   };
   return (
     <>
